@@ -23,9 +23,12 @@ class UserController extends Controller
         return view('users.edit', ['user' => $user]);
     } 
 
-    public function update()
+    public function update(UpdateRequest $request)
     {
-        dd('動いた！');
+        $user = Auth::user();
+        $user->fill($request->all());
+        $user->save();
+        return redirect()->back()->with(['message' => '更新しました！']);
     }
 }
 ?>
