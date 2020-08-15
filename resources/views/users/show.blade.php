@@ -1,3 +1,6 @@
 これは View の表示テストです
+@extends('layouts.app')
 
-{{ $user->name }}
+@section('content')
+  {{ $user->name }}
+@endsection
