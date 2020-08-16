@@ -24,8 +24,15 @@ Route::middleware('auth')->group(function () {
     Route::post('me', 'UserController@update')->name('users.update');
 });
 
-Route::middleware('auth')->prefix('posts')->as('posts.')->group(function () {
-    Route::get('create', 'PostController@create')->name('create');
-    Route::post('store', 'PostController@store')->name('store');
-    Route::post('{post}/delete', 'PostController@delete')->name('delete');
+Route::prefix('posts')->as('posts.')->group(function () {
+    // auth が適用される (ログインユーザーのみ許可)
+    Route::middleware('auth')->group(function () {
+        Route::get('create', 'PostController@create')->name('create');
+        Route::post('store', 'PostController@store')->name('store');
+        Route::post('{post}/delete', 'PostController@delete')->name('delete');
+        Route::post('{post}/reply', 'PostController@reply')->name('reply');
+    });
+
+    // auth が適用されない (ログインしてなくても閲覧可)
+    Route::get('{post}', 'PostController@show')->name('show');
 });
