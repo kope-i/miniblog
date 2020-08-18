@@ -31,5 +31,7 @@ class UserController extends Controller
         $user->save();
         return redirect()->back()->with(['message' => '更新しました！']);
     }
+
+     
 }
 ?>
