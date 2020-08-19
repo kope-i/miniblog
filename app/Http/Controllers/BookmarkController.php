@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class BookmarkController extends Controller
 {
@@ -19,4 +20,11 @@ class BookmarkController extends Controller
 
         return redirect()->back();
     }
+
+    public function remove(Post $post)
+{
+    Auth::user()->bookmarkingPosts()->detach($post->id);
+
+    return redirect()->back();
+}
 }
